@@ -13,12 +13,14 @@ const { response } = require('express');
 const login = require('./routes/logins');
 const messages = require('./routes/messages');
 const employees = require('./routes/employees');
+const salary = require('./routes/salary')
 
 app.use(express.json())
 
 app.use('/',login)
 app.use('/messages',messages)
 app.use('/employees',employees)
+app.use('/salary',salary)
 
 
 const swaggerOptions = {
@@ -53,31 +55,6 @@ mongoose.connect('mongodb://localhost/project')
   .catch(err=> console.error('Could not connect to MongoDB'));
 
 
-app.get('/salary/:name',async (req,res)=>{
-    if(req.params.name==='all'){
-        var salary = await Salary.find()
-        return res.status(200).send(salary);
-    }
-
-    var salary = await Salary.findOne({uname:req.params.name})
-    res.status(200).send(salary);
-
-})
-
-app.post('/salary',async (req,res)=>{
-    var {uname,package,monthly,last}=req.body;
-
-    var salary = new Salary({
-        uname:uname,
-        package:package,
-        monthlyInhand:monthly,
-        last: last
-    })
-
-    salary.save().then(()=>{
-        res.status(200).send(`${uname} has salary of ${package} with monthly of:${monthly} recieved last on ${last}`)
-    })
-})
 
 app.listen(PORT,()=>{
     console.log(`Listening on port ${PORT}`)
