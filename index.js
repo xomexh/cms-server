@@ -6,6 +6,7 @@ const PORT = 3000;
 const bcrypt = require('bcrypt')
 const swaggerJsDoc = require('swagger-jsdoc')
 const swaggerUi=require('swagger-ui-express')
+const cors = require("cors");
 
 const auth = require('./middleware/auth');
 const { response } = require('express');
@@ -16,7 +17,7 @@ const employees = require('./routes/employees');
 const salary = require('./routes/salary')
 
 app.use(express.json())
-
+app.use(cors());
 app.use('/',login)
 app.use('/messages',messages)
 app.use('/employees',employees)

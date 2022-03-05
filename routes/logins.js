@@ -2,6 +2,12 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken')
 
+router.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  }); // this is to avoid CROS error which browsers throw.
+
 const {Login, Employee} = require('../models/models')
 const auth = require('../middleware/auth');
 
@@ -56,8 +62,8 @@ router.post('/auth',async(req,res)=>{
 
     const token = jwt.sign({user},'jwtPrivateKey')
 
-    res.status(200).send(`${uname} is now logged in!`)
-    //res.status(200).send(token)
+    //res.status(200).send(`${uname} is now logged in!`)
+    res.status(200).send(token)
 })
 
 module.exports=router;

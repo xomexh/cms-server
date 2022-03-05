@@ -3,6 +3,12 @@ const router = express.Router();
 
 const {Message} = require('../models/models')
 
+router.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  }); // this is to avoid CROS error which browsers throw.
+
 router.get('/:id',async(req,res)=>{
     if(req.params.id==='all'){
         var messages = await Message.find()
@@ -39,6 +45,12 @@ router.post('/',async(req,res)=>{
         res.status(200).send(`MSG NO:${count} ${from} has sent: ${message} to ${to} `)
     })
 
+})
+
+router.delete('/:id',async(req,res)=>{
+    const message=await Message.findByIdAndDelete(req.params.id)
+    console.log(message)
+    res.send(message);
 })
 
 module.exports= router;
