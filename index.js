@@ -15,6 +15,8 @@ const login = require('./routes/logins');
 const messages = require('./routes/messages');
 const employees = require('./routes/employees');
 const salary = require('./routes/salary')
+const attendance = require('./routes/attendance');
+const project = require('./routes/projects')
 
 app.use(express.json())
 app.use(cors());
@@ -22,6 +24,8 @@ app.use('/',login)
 app.use('/messages',messages)
 app.use('/employees',employees)
 app.use('/salary',salary)
+app.use('/attendance',attendance)
+app.use('/project',project)
 
 
 const swaggerOptions = {

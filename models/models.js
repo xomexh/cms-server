@@ -39,12 +39,34 @@ const employeeSchema = new mongoose.Schema({
     exp:String
 })
 
+const attendanceSchema = new mongoose.Schema({
+    uname:String,
+    date:Date,
+    punchIn:{
+        type:Date,
+        default:Date.now()
+    },
+    punchOut:Date
+})
+
+const projectSchema = new mongoose.Schema({
+    name:String,
+    startDate:Date,
+    endDate:Date,
+    members:[String]
+
+})
+
 const Login = mongoose.model('Login',loginSchema);
 const Message = mongoose.model('Messages',messageSchema);
 const Salary = mongoose.model('Salary',salarySchema);
 const Employee = mongoose.model('Employee',employeeSchema);
+const Attendance = mongoose.model('Attendance',attendanceSchema)
+const Project = mongoose.model('Projects',projectSchema)
 
 exports.Login = Login;
 exports.Message = Message;
 exports.Salary = Salary;
 exports.Employee = Employee;
+exports.Attendance = Attendance;
+exports.Project = Project;
