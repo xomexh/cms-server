@@ -19,10 +19,17 @@ router.put('/',async(req,res)=>{
     console.log(result)
 })
 
-router.get('/',async(req,res)=>{
-    const emp = await Employee.find()
+router.get('/:uname',async(req,res)=>{
 
-    res.status(200).send(emp)
+    if(req.params.uname==='all'){
+        const emp = await Employee.find()
+        return res.status(200).send(emp)
+    }
+
+    const emp = await Employee.findOne({uname:req.params.uname})
+    return res.status(200).send(emp)
+
+    
 })
 
 module.exports=router

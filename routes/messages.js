@@ -33,17 +33,27 @@ router.get('/:id',async(req,res)=>{
 router.post('/',async(req,res)=>{
     var {from,to,message}=req.body;
 
-    var count= await Message.find().count()
-    const messages = new Message({
-        id: ++count,
-        from:from,
-        to:to,
-        message:message
-    })
-
-    messages.save().then(()=>{
-        res.status(200).send(`MSG NO:${count} ${from} has sent: ${message} to ${to} `)
-    })
+    try{
+        const msg = await Message.findOne({_id:req.body.id})
+        msg.message = message
+        msg.save().then(()=>{
+            res.status(200).send(`MSG NO:${count} ${from} has sent: ${message} to ${to} `)
+        })
+    }
+    catch{
+        var count= await Message.find().count()
+        const messages = new Message({
+            id: ++count,
+            from:from,
+            to:to,
+            message:message
+        })
+    
+        messages.save().then(()=>{
+            res.status(200).send(`MSG NO:${count} ${from} has sent: ${message} to ${to} `)
+        })
+    }
+    
 
 })
 
