@@ -34,6 +34,7 @@ router.post('/',async(req,res)=>{
         const attendance = new Attendance({
             uname:req.body.uname,
             date:req.body.date,
+            punchIn:req.body.punchIn
         })
         attendance.save().then((response)=>{
             res.status(200).send(response)

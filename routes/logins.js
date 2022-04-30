@@ -21,7 +21,7 @@ router.get('/login',async(req,res)=>{
     res.status(200).send(login)
 })
 
-router.post('/login',auth,async(req,res)=>{
+router.post('/login',async(req,res)=>{
 
     var{uname,password}=req.body;
 
@@ -38,12 +38,7 @@ router.post('/login',auth,async(req,res)=>{
     })
 
     const emp = new Employee({
-        name:"",
-        age:0,
         uname:uname,
-        project:"",
-        doj:Date.now(),
-        exp:""
     })
     await emp.save()
 })
@@ -53,12 +48,12 @@ router.post('/auth',async(req,res)=>{
     var {uname, password} = req.body;
 
     if(!await Login.findOne({uname:uname}))
-    return res.status(400).send('Invalid Username')
+    return res.status(400).send('Invalid Username or Password')
 
     var user=await Login.findOne({uname:uname})
 
     if(user.password!=password)
-    return res.status(400).send('Invalid Password')
+    return res.status(400).send('Invalid Password or Password')
 
     const token = jwt.sign({user},'jwtPrivateKey')
 

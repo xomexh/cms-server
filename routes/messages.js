@@ -31,7 +31,7 @@ router.get('/:id',async(req,res)=>{
 
 
 router.post('/',async(req,res)=>{
-    var {from,to,message}=req.body;
+    var {title,from,to,message}=req.body;
 
     try{
         const msg = await Message.findOne({_id:req.body.id})
@@ -45,6 +45,7 @@ router.post('/',async(req,res)=>{
         const messages = new Message({
             id: ++count,
             from:from,
+            title:title,
             to:to,
             message:message
         })

@@ -11,6 +11,7 @@ const loginSchema = new mongoose.Schema({
 
 const messageSchema = new mongoose.Schema({
     id:Number,
+    title:String,
     from: String,
     to: String,
     message:{
@@ -31,20 +32,31 @@ const salarySchema = new mongoose.Schema({
 })
 
 const employeeSchema = new mongoose.Schema({
-    name:String,
+    profilePhoto:String,
+    firstname:String,
+    lastname:String,
     age:Number,
+    mobilenumber:String,
     uname:String,
     project:String,
     doj:Date,
-    exp:String
+    address:String,
+    city:String,
+    state:String,
+    pincode:String,
+    emailid:String,
+    education10th:String,
+    education12th:String,
+    educationBachelors:String,
+    educationMasters:String,
+    currentProject:String
 })
 
 const attendanceSchema = new mongoose.Schema({
     uname:String,
     date:Date,
     punchIn:{
-        type:Date,
-        default:Date.now()
+        type:Date
     },
     punchOut:Date
 })
@@ -53,7 +65,12 @@ const projectSchema = new mongoose.Schema({
     name:String,
     startDate:Date,
     endDate:Date,
-    members:[String]
+    projectLead:String,
+    members:[{
+        empId:{type: mongoose.Schema.Types.ObjectId},
+        remark:String,
+        rating:Number
+    }]
 
 })
 

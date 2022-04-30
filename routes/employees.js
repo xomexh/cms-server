@@ -1,18 +1,39 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken')
+const sharp = require('sharp')
 
 const {Employee} = require('../models/models')
 
 router.put('/',async(req,res)=>{
-    var {name,age,uname,project,doj,exp}=req.body;
+    var {firstname,
+        lastname,
+        age,
+        uname,
+        mobilenumber,
+        address,
+        city,
+        state,
+        pincode,
+        educationBachelors,
+        currentProject,
+        profilePhoto,
+        emailid}=req.body;    
+
     const result = await Employee.updateOne({uname:uname},{
         $set:{
-            name:name,
+            profilePhoto:profilePhoto,
+            firstname:firstname,
+            lastname:lastname,
             age:age,
-            project:project,
-            doj:doj,
-            exp:exp
+            mobilenumber:mobilenumber,
+            address:address,
+            city:city,
+            state:state,
+            pincode:pincode,
+            educationBachelors:educationBachelors,
+            emailid:emailid,
+            currentProject:currentProject
         }
     })
     res.status(200).send(result)
@@ -27,9 +48,7 @@ router.get('/:uname',async(req,res)=>{
     }
 
     const emp = await Employee.findOne({uname:req.params.uname})
-    return res.status(200).send(emp)
-
-    
+    return res.status(200).send(emp) 
 })
 
 module.exports=router
