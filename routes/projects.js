@@ -9,9 +9,21 @@ router.use((req, res, next) => {
     next();
   }); // this is to avoid CROS error which browsers throw.
 
-router.get('/',async(req,res)=>{
-    const projects =await Project.find()
-    res.status(200).send(projects)
+router.get('/:name',async(req,res)=>{
+
+    if(req.params.name==='all'){
+        const projects =await Project.find()
+        return res.status(200).send(projects)
+    }
+
+    const projects=await Project.findOne({name:req.params.name})
+
+    if(!projects){
+        return res.status(400).send("No such Project exists")
+    }
+
+    return res.status(200).send(projects)
+    
 })
 
 router.post('/',async(req,res)=>{
@@ -31,6 +43,22 @@ router.post('/',async(req,res)=>{
     })
     // const emp = await Employee.findOne({_id:members[0].empId})
     projects.save().then(()=>{res.status(200).send(`${name} has been added with members of`)})
+})
+
+router.put('/:name/:empid',async(req,res)=>{
+
+    const project=await Project.findOne({name:req.params.name})
+    
+    project.members.map(
+        (item,index)=>{
+            if(item.empId==req.params.empid){
+                item.remark=req.body.remark;
+                item.rating=req.body.rating;
+            }
+        }
+    )
+
+    project.save().then(()=>{res.status(200).send('Done')})
 })
 
 module.exports=router

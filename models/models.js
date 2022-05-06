@@ -74,12 +74,24 @@ const projectSchema = new mongoose.Schema({
 
 })
 
+const leaveSchema = new mongoose.Schema({
+    uname:String,
+    typeOfLeave:String,
+    request:String,
+    status:String,
+    reason:String,
+    approvedBy:{
+        type:mongoose.Schema.Types.ObjectId
+    }
+})
+
 const Login = mongoose.model('Login',loginSchema);
 const Message = mongoose.model('Messages',messageSchema);
 const Salary = mongoose.model('Salary',salarySchema);
 const Employee = mongoose.model('Employee',employeeSchema);
 const Attendance = mongoose.model('Attendance',attendanceSchema)
 const Project = mongoose.model('Projects',projectSchema)
+const Leave = mongoose.model('Leaves',leaveSchema)
 
 exports.Login = Login;
 exports.Message = Message;
@@ -87,3 +99,4 @@ exports.Salary = Salary;
 exports.Employee = Employee;
 exports.Attendance = Attendance;
 exports.Project = Project;
+exports.Leave=Leave;

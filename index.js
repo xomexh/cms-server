@@ -17,6 +17,7 @@ const employees = require('./routes/employees');
 const salary = require('./routes/salary')
 const attendance = require('./routes/attendance');
 const project = require('./routes/projects')
+const leaves= require('./routes/leaves')
 
 app.use(express.json({limit: '50mb'}));
 // app.use(express.urlencoded({limit: '50mb'}));
@@ -27,6 +28,7 @@ app.use('/employees',employees)
 app.use('/salary',salary)
 app.use('/attendance',attendance)
 app.use('/project',project)
+app.use('/leaves',leaves)
 
 
 const swaggerOptions = {
