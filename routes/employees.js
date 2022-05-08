@@ -42,24 +42,29 @@ router.put('/',async(req,res)=>{
 
 router.get('/:uname',async(req,res)=>{
 
-    try {
-        const emp=await Employee.findById(req.params.uname)
+    try { //to find a particular employee by their username
+        const emp=await Employee.findById(req.params.uname) 
+        console.log("error in try part")
         return res.status(200).send(emp)
     } catch (error) {
         console.log("Some error")
     }
 
-    if(req.params.uname==='all'){
+    if(req.params.uname==='all'){ //to get all employees
         const emp = await Employee.find()
+        console.log("error in if part of all")
         return res.status(200).send(emp)
+        
     }
 
     if(!await Employee.findOne({uname:req.params.uname})){
-        return res.status(400).send("No such data") //i.e no such username
+        console.log("error in if") //i.e no such username
+        return res.status(400).send("No such data") 
     }
     
     try {
         const emp = await Employee.findOne({uname:req.params.uname})
+        console.log("error in try of finding employee")
         return res.status(200).send(emp)
     } catch (error) {
         console.log("Some error here")

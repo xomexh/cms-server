@@ -85,6 +85,11 @@ const leaveSchema = new mongoose.Schema({
     }
 })
 
+const todoSchema = new mongoose.Schema({
+    uname:String,
+    item:String
+})
+
 const Login = mongoose.model('Login',loginSchema);
 const Message = mongoose.model('Messages',messageSchema);
 const Salary = mongoose.model('Salary',salarySchema);
@@ -92,6 +97,7 @@ const Employee = mongoose.model('Employee',employeeSchema);
 const Attendance = mongoose.model('Attendance',attendanceSchema)
 const Project = mongoose.model('Projects',projectSchema)
 const Leave = mongoose.model('Leaves',leaveSchema)
+const Todo = mongoose.model('Todo',todoSchema)
 
 exports.Login = Login;
 exports.Message = Message;
@@ -99,4 +105,5 @@ exports.Salary = Salary;
 exports.Employee = Employee;
 exports.Attendance = Attendance;
 exports.Project = Project;
-exports.Leave=Leave;
+exports.Leave = Leave;
+exports.Todo = Todo;
