@@ -10,11 +10,20 @@ router.use((req, res, next) => {
   }); // this is to avoid CROS error which browsers throw.
 
 router.post('/',async(req,res)=>{
-    var {item,uname}=req.body;
+    var {_id,item,uname,isComplete}=req.body;
+
+    if(_id){
+        const todo = await Todo.findById(_id)
+        todo.isComplete=!todo.isComplete
+        todo.save().then(()=>{
+            //return res.status(200).send("Saved change of status")
+        })
+    }
 
     const todo= new Todo({
         uname:uname,
-        item:item
+        item:item,
+        isComplete:isComplete
     })
 
     todo.save().then(()=>{
@@ -33,3 +42,5 @@ router.delete('/:id',async(req,res)=>{
         return res.status(200).send("Deleted succesfully")
     }
 })
+
+module.exports=router;

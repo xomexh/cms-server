@@ -27,12 +27,20 @@ router.get('/:name',async(req,res)=>{
 })
 
 router.post('/',async(req,res)=>{
-    const {name,startDate,members,projectLead}=req.body;
+    const {_id,name,startDate,members,projectLead}=req.body;
     
     const dup= await Project.findOne({name:req.body.name})
     try {
         if(dup.name) return res.status(400).send('Project already exists')
     } catch (error) {
+    }
+
+    if(await Project.findById(_id)){
+        const project = await Project.findById(_id)
+        project.name=name
+        project.startDate=startDate
+        project.projectLead=projectLead
+        return project.save().then(()=>console.log("updated"))
     }
 
     const projects = new Project({

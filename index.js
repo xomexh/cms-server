@@ -14,10 +14,11 @@ const { response } = require('express');
 const login = require('./routes/logins');
 const messages = require('./routes/messages');
 const employees = require('./routes/employees');
-const salary = require('./routes/salary')
+const salary = require('./routes/salary');
 const attendance = require('./routes/attendance');
-const project = require('./routes/projects')
-const leaves= require('./routes/leaves')
+const project = require('./routes/projects');
+const leaves= require('./routes/leaves');
+const todo = require('./routes/todo');
 
 app.use(express.json({limit: '50mb'}));
 // app.use(express.urlencoded({limit: '50mb'}));
@@ -29,6 +30,7 @@ app.use('/salary',salary)
 app.use('/attendance',attendance)
 app.use('/project',project)
 app.use('/leaves',leaves)
+app.use('/todo',todo)
 
 
 const swaggerOptions = {

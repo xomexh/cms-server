@@ -63,8 +63,8 @@ const attendanceSchema = new mongoose.Schema({
 
 const projectSchema = new mongoose.Schema({
     name:String,
-    startDate:Date,
-    endDate:Date,
+    startDate:String,
+    endDate:String,
     projectLead:String,
     members:[{
         empId:{type: mongoose.Schema.Types.ObjectId},
@@ -87,7 +87,11 @@ const leaveSchema = new mongoose.Schema({
 
 const todoSchema = new mongoose.Schema({
     uname:String,
-    item:String
+    item:String,
+    isComplete:{
+        type:Boolean,
+        default:false
+      }
 })
 
 const Login = mongoose.model('Login',loginSchema);
