@@ -21,10 +21,10 @@ router.get('/:uname',async(req,res)=>{
 })
 
 router.post('/',async(req,res)=>{
-    const{uname,typeOfLeave,request,status,reason,approvedBy}=req.body
+    const{id,uname,typeOfLeave,request,status,reason,approvedBy}=req.body
 
     try {
-        var leave = await Leave.findOne({uname:uname})
+        var leave = await Leave.findById(id)
         leave.status=status
         leave.save().then((response)=>{
             res.status(200).send(response)

@@ -9,7 +9,7 @@ router.get('/:name',async (req,res)=>{
         return res.status(200).send(salary);
     }
 
-    var salary = await Salary.findOne({uname:req.params.name})
+    var salary = await Salary.find({uname:req.params.name})
     res.status(200).send(salary);
 
 })
